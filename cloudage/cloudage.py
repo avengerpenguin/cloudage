@@ -5,12 +5,19 @@ import sys
 
 
 def find_refs(resource_name, resource_object, context=None):
-    if not resource_object or type(resource_object) in [str, int, bool, type("")]:
+    if not resource_object or type(resource_object) in [
+        str,
+        int,
+        bool,
+        type(""),
+    ]:
         return
     elif type(resource_object) == list:
         for sub_object in resource_object:
             find_refs(
-                resource_name=resource_name, resource_object=sub_object, context=context
+                resource_name=resource_name,
+                resource_object=sub_object,
+                context=context,
             )
     else:
         if context == "Tags" and "Key" in resource_object:
@@ -53,7 +60,9 @@ def main():
         )
 
     for resource, details in template["Resources"].iteritems():
-        find_refs(resource_name=resource, resource_object=details, context=None)
+        find_refs(
+            resource_name=resource, resource_object=details, context=None
+        )
 
     print "}"
 
