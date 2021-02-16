@@ -1,23 +1,23 @@
 #!/usr/bin/env python
-
-import os
-
 from setuptools import setup
 
-
-def read(readme_file):
-    return open(os.path.join(os.path.dirname(__file__), readme_file)).read()
-
-
+NAME = "cloudage"
 setup(
-    name="cloudage",
-    version="0.0.0",
+    name=NAME,
+    use_scm_version={
+        "local_scheme": "dirty-tag",
+        "write_to": f"{NAME}/_version.py",
+        "fallback_version": "0.0.0",
+    },
     author="Ross Fenning",
-    author_email="ross.fenning@gmail.com",
-    packages=["cloudage"],
+    author_email="github@rossfenning.co.uk",
+    packages=[NAME],
     description="Converts AWS CloudFormation to Graphviz DOT.",
-    url="http://github.com/AvengerPenguin/cloudage",
     install_requires=["setuptools"],
+    setup_requires=[
+        "setuptools_scm>=3.3.1",
+        "pre-commit",
+    ],
     entry_points={
         "console_scripts": [
             "cloudage = cloudage:main",
