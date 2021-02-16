@@ -23,10 +23,12 @@ def find_refs(resource_name, resource_object, context=None):
         if context == "Tags" and "Key" in resource_object:
             context = "Tags:" + resource_object["Key"]
 
-        for key, value in resource_object.iteritems():
+        for key, value in resource_object.items():
             if key == "Ref":
-                print '{resource} -> {target} [label="{context}"];'.format(
-                    resource=resource_name, target=value, context=context
+                print(
+                    '{resource} -> {target} [label="{context}"];'.format(
+                        resource=resource_name, target=value, context=context
+                    )
                 )
             else:
                 if key not in ["Fn::Join", "Value"]:
@@ -46,25 +48,27 @@ def find_refs(resource_name, resource_object, context=None):
 def main():
     template = json.load(sys.stdin)
 
-    print "digraph g {"
-    print "rankdir=LR;"
+    print("digraph g {")
+    print("rankdir=LR;")
 
     for param in template["Parameters"]:
-        print '{param} [label="{param}",shape=oval];'.format(param=param)
+        print('{param} [label="{param}",shape=oval];'.format(param=param))
 
-    print
+    print("\n")
 
-    for resource, details in template["Resources"].iteritems():
-        print r'{resource} [label="{resource}\n{type}",shape=box];'.format(
-            resource=resource, type=details["Type"]
+    for resource, details in template["Resources"].items():
+        print(
+            r'"{resource}" [label="{resource}\n{type}",shape=box];'.format(
+                resource=resource, type=details["Type"]
+            )
         )
 
-    for resource, details in template["Resources"].iteritems():
+    for resource, details in template["Resources"].items():
         find_refs(
             resource_name=resource, resource_object=details, context=None
         )
 
-    print "}"
+    print("}")
 
 
 if __name__ == "__main__":
