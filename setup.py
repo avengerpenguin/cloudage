@@ -18,6 +18,13 @@ setup(
         "setuptools_scm>=3.3.1",
         "pre-commit",
     ],
+    extras_require={
+        "test": [
+            "pytest",
+            "pytest-pikachu",
+            "pytest-mypy",
+        ],
+    },
     entry_points={
         "console_scripts": [
             "cloudage = cloudage:main",
