@@ -9,7 +9,7 @@ def find_refs(resource_name, resource_object, context=None):
         str,
         int,
         bool,
-        type(""),
+        str,
     ]:
         return
     elif type(resource_object) == list:
